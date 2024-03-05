@@ -4,8 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.company.entities.Employee;
 
@@ -28,7 +33,6 @@ public class EmpDAOImpl implements EmpDAOInterface {
 			for (int i = 0; i < empSkill.length; i++) {
 				stmt.setString(2, empSkill[i].join(", ", empSkill));
 			}
-
 			result = stmt.executeUpdate();
 
 			stmt.close();
@@ -42,65 +46,84 @@ public class EmpDAOImpl implements EmpDAOInterface {
 		System.out.println("It's done");
 		return 0;
 	}
-
+	
+	@Override
 	public ArrayList<Employee> readAllEmpDAO() {
-		ArrayList<Employee> list = new ArrayList<Employee>();
-		Employee employee = null;
+	    ArrayList<Employee> list = new ArrayList<Employee>();
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EmployeeDB", "root", "root");
+	        String q = "select * from EmployeeTable";
+	        stmt = con.prepareStatement(q);
+	        rs = stmt.executeQuery();
+	        while (rs.next()) {
+	            Employee employee = new Employee();
+	            employee.setEmployeeID(rs.getInt("employeeID"));
+	            employee.setName(rs.getString("name"));
+	            String skillsString = rs.getString("skills");
+	            String[] skillsArray = skillsString.split(", ");
+	            employee.setSkills(skillsArray);
+	            employee.setAge(rs.getInt("age"));
+	            employee.setSalary(rs.getInt("salary"));
+	            employee.setBirthDate(rs.getString("birthDate"));
+	            
+	            list.add(employee);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return list;
+	}
+
+
+	@Override
+	public boolean updateEmpDAO(Employee employee) {
+		boolean isUpdated = false;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EmployeeDB", "root", "root");
-			String q = "select * from EmployeeTable";
+			String q = "update EmployeeTable set name=?, skills=?, age=?, salary=?, birthDate=? where employeeID=?";
 			PreparedStatement stmt = con.prepareStatement(q);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				employee = new Employee();
-				employee.setName(rs.getString(1));
-				String[] skills = employee.getSkills();
-				for (int i = 0; i < skills.length; i++) {
-					skills[i].split(", ", 2).toString();
-				}
-				employee.setAge(rs.getInt(3));
-				employee.setSalary(rs.getInt(4));
-				employee.setBirthDate(rs.getString(5));
+			stmt.setString(1, employee.getName());
+			String[] empSkill = employee.getSkills();
+			for (int i = 0; i < empSkill.length; i++) {
+				stmt.setString(2, empSkill[i].join(", ", empSkill));
 			}
-			list.add(employee);
-		} catch (Exception e) {
-			e.printStackTrace();
+			stmt.setInt(3, employee.getAge());
+			stmt.setInt(4, employee.getSalary());
+			stmt.setString(5, employee.getBirthDate());
+			stmt.setInt(6, employee.getEmployeeID());
+			int count = stmt.executeUpdate();
+			if(count==1) {
+				isUpdated = true;
+			}
 		}
-		return list;
+		catch(Exception e){
+			System.out.println(e);
+		}
+		return isUpdated;
 	}
 
 	@Override
-	public void updateEmpDAO() {
-
+	public boolean deleteEmpDAO(int id) {
+		boolean isDeleted = false;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EmployeeDB", "root", "root");
+			String q = "delete from EmployeeTable where employeeID=?";
+			PreparedStatement stmt = con.prepareStatement(q);
+			stmt.setInt(1, id);
+			System.out.println(stmt.executeUpdate());
+			int count = stmt.executeUpdate();
+			if(count==1) {
+				isDeleted=true;
+			}
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		return isDeleted;
 	}
-
-	@Override
-	public void deleteEmpDAO() {
-
-	}
-
-//	public static void main(String[] args) {
-//		try {
-//			
-//			Class.forName("com.mysql.jdbc.Driver");
-//			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EmployeeDB", "root", "root");
-//			String q = "insert into EmployeeTable values(?,?,?,?,?,?)";
-//			PreparedStatement stmt = con.prepareStatement(q);
-//			stmt.setInt(1, empId);
-//			stmt.setString(2, empName);
-//			stmt.setString(3, empSkill);
-//			stmt.setInt(4, empAge);
-//			stmt.setInt(5, empSalary);
-//			stmt.setString(6, empBirthDate);
-//			stmt.execute();
-//			stmt.close();
-//			con.close();
-//		}
-//		catch(Exception e) {
-//			System.out.println(e);
-//		}
-//		System.out.println("It's done");
-//	}
-
 }

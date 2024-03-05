@@ -21,15 +21,15 @@ public class EmpServiceImpl implements EmpServiceInterface {
 	}
 
 	@Override
-	public void empUpdate() {
-		// TODO Auto-generated method stub
-
+	public boolean empUpdate(Employee employee) {
+		return empDao.updateEmpDAO(employee);
 	}
 
 	@Override
-	public void empDelete() {
-		// TODO Auto-generated method stub
-
+	public boolean empDelete(int id) {
+		return empDao.deleteEmpDAO(id);
 	}
+
+	
 
 }

@@ -4,13 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>registration Page</title>
+<title>Update data page</title>
 </head>
 <body>
 	<div style="border: solid black 2px; margin-left:760px; margin-top: 150px; padding: 10px; width: 450px " class="d1">
-		<form action="insert-emp" method="post">
-			<h1 style="margin-left:70px "><U>Registration Form</U></h1>
-			<!-- <p style="display: inline-block;">Employee ID: </p><input name="empid" placeholder="type here..." type="number" /> -->
+		<form action="update-emp" method="post">
+			<p style="display: inline-block;">ID that needs to be updated: </p><input name="empid" placeholder="type here..." type="number" />
+			<hr>
+			<hr>
 			<hr>
 			<p style="display: inline-block;">Name: </p><input name="EmpName" placeholder="type here..." type="text"/>
 			<hr>
@@ -28,8 +29,7 @@
 			<p style="display: inline-block;">Birth Date: </p><input name="EmployeeDateOfBirth" placeholder="type here..." />
 			<br>
 			<br>
-			<button>Insert</button>
-			
+			<button>UPDATE</button> &nbsp &nbsp <button><a href="UpdatePage.jsp">Reload</a></button>
 		</form>
 	</div>
 </body>

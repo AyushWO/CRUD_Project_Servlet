@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Home Page</title>
 </head>
 <body>
 	<h1>
@@ -12,15 +12,15 @@
 		register.
 	</h1>
 	<h1>
-		To fetch all the data, please <a href="ReadAll.jsp"><button>click</button></a>
+		To fetch all the data, please <a href="emp-list"><button>click</button></a>
 		here.
 	</h1>
 	<h1>
-		Please <a href="ReadAll.jsp"><button>click</button></a>
+		Please <a href="UpdatePage.jsp"><button>click</button></a>
 		here to update the employee data.
 	</h1>
 	<h1>
-		Please <a href="ReadAll.jsp"><button>click</button></a>
+		Please <a href="deletePage.jsp"><button>click</button></a>
 		here to delete the employee data.
 	</h1>
 </body>

@@ -10,7 +10,7 @@ public interface EmpDAOInterface {
 
 	public ArrayList<Employee> readAllEmpDAO();
 
-	public void updateEmpDAO();
+	public boolean updateEmpDAO(Employee employee);
 
-	public void deleteEmpDAO();
+	public boolean deleteEmpDAO(int id);
 }

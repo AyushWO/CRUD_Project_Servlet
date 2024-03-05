@@ -17,6 +17,16 @@
 		<servlet-name>firstp</servlet-name>
 		<url-pattern>/emp-list</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>firstp</servlet-name>
+		<url-pattern>/update-emp</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>firstp</servlet-name>
+		<url-pattern>/delete-emp</url-pattern>
+	</servlet-mapping>
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

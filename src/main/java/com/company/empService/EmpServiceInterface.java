@@ -10,7 +10,7 @@ public interface EmpServiceInterface {
 
 	public ArrayList<Employee> empReadAll();
 
-	public void empUpdate();
+	public boolean empUpdate(Employee employee);
 
-	public void empDelete();
+	public boolean empDelete(int id);
 }
