@@ -14,7 +14,7 @@ import com.company.empService.EmpServiceImpl;
 import com.company.empService.EmpServiceInterface;
 import com.company.entities.Employee;
 
-public class EmpControl extends HttpServlet {
+public class EmpController extends HttpServlet {
 	Employee employee = new Employee();
 	EmpServiceInterface service = new EmpServiceImpl();
 

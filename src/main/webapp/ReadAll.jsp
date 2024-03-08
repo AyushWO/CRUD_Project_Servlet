@@ -2,7 +2,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.company.entities.Employee"%>
-<%@page import="com.company.controller.EmpControl"%>
+<%@page import="com.company.controller.EmpController"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page isELIgnored = "false" %>
