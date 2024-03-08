@@ -13,12 +13,45 @@
 <meta charset="UTF-8">
 <title>Read all data</title>
 </head>
-<body>
+<body style="background-color: #87CEEB">
 	<h1>Here's your data:</h1>
 	
-	<c:forEach var="e" items="${list}" >
+	<table border="5">
+		<thead style="font-weight: bold; ">
+				<tr>
+					<td>ID</td>
+					<td>Name</td>
+					<td>Skills</td>
+					<td>Age</td>
+					<td>Salary</td>
+					<td>Date of Birth</td>
+					<td>Action</td>
+				</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="emp" items="${list}" >
+				<tr>
+					<td>${emp.employeeID} </td>
+					<td>${emp.name} </td>
+					<td>
+						<c:forEach var="emp1" items="${emp.skills}" varStatus="loop" >
+							${emp1} 
+						</c:forEach>
+					</td>
+					<td>${emp.age} </td>
+					<td>${emp.salary} </td>
+					<td>${emp.birthDate} </td>
+					<td> <a href="empListById?employeeID=${emp.employeeID}"><button>Update</button></a>
+					 &nbsp <a href="deleteEmpById?employeeID=${emp.employeeID}"><button>Delete</button></a>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	
+	<%-- <c:forEach var="e" items="${list}" >
 		<h1>${e}</h1>
-	</c:forEach>
+	</c:forEach> --%>
 	
 	<hr>
 	<hr>

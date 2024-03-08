@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>update success</title>
 </head>
-<body>
+<body style="background-color: #87CEEB">
 	<h1>Successfully updated!! Please check your database.</h1>
 	<hr>
 	<hr>

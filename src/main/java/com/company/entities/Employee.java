@@ -6,9 +6,18 @@ public class Employee {
 	private int employeeID;
 	private String name;
 	private String[] skills;
+	private String skill;
 	private int age;
 	private int salary;
 	private String birthDate;
+
+	public String getSkill() {
+		return skill;
+	}
+
+	public void setSkill(String skill) {
+		this.skill = skill;
+	}
 
 	public int getEmployeeID() {
 		return employeeID;
@@ -58,16 +67,6 @@ public class Employee {
 		this.birthDate = birthDate;
 	}
 
-	public Employee(int employeeID, String name, String[] skills, int age, int salary, String birthDate) {
-		super();
-		this.employeeID = employeeID;
-		this.name = name;
-		this.skills = skills;
-		this.age = age;
-		this.salary = salary;
-		this.birthDate = birthDate;
-	}
-
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -76,6 +75,17 @@ public class Employee {
 	@Override
 	public String toString() {
 		return "Employee [employeeID=" + employeeID + ", name=" + name + ", skills=" + Arrays.toString(skills)
-				+ ", age=" + age + ", salary=" + salary + ", birthDate=" + birthDate + "]";
+				+ ", skill=" + skill + ", age=" + age + ", salary=" + salary + ", birthDate=" + birthDate + "]";
+	}
+
+	public Employee(int employeeID, String name, String[] skills, String skill, int age, int salary, String birthDate) {
+		super();
+		this.employeeID = employeeID;
+		this.name = name;
+		this.skills = skills;
+		this.skill = skill;
+		this.age = age;
+		this.salary = salary;
+		this.birthDate = birthDate;
 	}
 }

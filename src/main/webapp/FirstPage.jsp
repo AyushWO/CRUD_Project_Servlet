@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <title>registration Page</title>
 </head>
-<body>
+<body style="background-color: #87CEEB">
 	<div style="border: solid black 2px; margin-left:760px; margin-top: 150px; padding: 10px; width: 450px " class="d1">
-		<form action="insert-emp" method="post">
+		<form action="insertEmp" method="post">
 			<h1 style="margin-left:70px "><U>Registration Form</U></h1>
 			<!-- <p style="display: inline-block;">Employee ID: </p><input name="empid" placeholder="type here..." type="number" /> -->
 			<hr>
@@ -29,8 +29,9 @@
 			<br>
 			<br>
 			<button>Insert</button>
-			
 		</form>
+		<hr><hr>
+		<button> <a href="empAllList">ReadAllData</a> </button>
 	</div>
 </body>
 </html>

@@ -6,13 +6,13 @@
 <meta charset="UTF-8">
 <title>Home Page</title>
 </head>
-<body>
+<body style="background-color: #87CEEB" >
 	<h1>
 		Please <a href="FirstPage.jsp"><button>click</button> </a> here to
 		register.
 	</h1>
 	<h1>
-		To fetch all the data, please <a href="emp-list"><button>click</button></a>
+		To fetch all the data, please <a href="empAllList"><button>click</button></a>
 		here.
 	</h1>
 	<h1>

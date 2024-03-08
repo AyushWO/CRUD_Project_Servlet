@@ -10,26 +10,32 @@
 
 	<servlet-mapping>
 		<servlet-name>firstp</servlet-name>
-		<url-pattern>/insert-emp</url-pattern>
+		<url-pattern>/insertEmp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>firstp</servlet-name>
+		<url-pattern>/empAllList</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>firstp</servlet-name>
-		<url-pattern>/emp-list</url-pattern>
+		<url-pattern>/empListById</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>firstp</servlet-name>
-		<url-pattern>/update-emp</url-pattern>
+		<url-pattern>/updateEmp</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>firstp</servlet-name>
-		<url-pattern>/delete-emp</url-pattern>
+		<url-pattern>/deleteEmpById</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>FirstPage.jsp</welcome-file>
+		<!-- <welcome-file>index.jsp</welcome-file> -->
 	</welcome-file-list>
 
 </web-app>

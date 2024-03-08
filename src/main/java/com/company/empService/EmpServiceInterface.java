@@ -10,6 +10,8 @@ public interface EmpServiceInterface {
 
 	public ArrayList<Employee> empReadAll();
 
+	public Employee getEmpById(int id);
+
 	public boolean empUpdate(Employee employee);
 
 	public boolean empDelete(int id);

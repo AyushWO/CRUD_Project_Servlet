@@ -21,6 +21,11 @@ public class EmpServiceImpl implements EmpServiceInterface {
 	}
 
 	@Override
+	public Employee getEmpById(int id) {
+		return empDao.getEmpById(id);
+	}
+
+	@Override
 	public boolean empUpdate(Employee employee) {
 		return empDao.updateEmpDAO(employee);
 	}
@@ -29,7 +34,4 @@ public class EmpServiceImpl implements EmpServiceInterface {
 	public boolean empDelete(int id) {
 		return empDao.deleteEmpDAO(id);
 	}
-
-	
-
 }
