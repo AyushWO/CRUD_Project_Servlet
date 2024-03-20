@@ -19,7 +19,6 @@
 	<table border="5">
 		<thead style="font-weight: bold; ">
 				<tr>
-					<td>ID</td>
 					<td>Name</td>
 					<td>Skills</td>
 					<td>Age</td>
@@ -29,13 +28,15 @@
 				</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="emp" items="${list}" >
+			<c:forEach var="emp" items="${list}" varStatus="loop" >
 				<tr>
-					<td>${emp.employeeID} </td>
 					<td>${emp.name} </td>
+					<%-- <td>"${emp.skills}"</td> --%>
 					<td>
 						<c:forEach var="emp1" items="${emp.skills}" varStatus="loop" >
-							${emp1} 
+							<c:forEach var="emp2" items="${emp1.skills}" varStatus="loop" >
+								${emp2}
+							</c:forEach>
 						</c:forEach>
 					</td>
 					<td>${emp.age} </td>
@@ -49,9 +50,31 @@
 		</tbody>
 	</table>
 	
-	<%-- <c:forEach var="e" items="${list}" >
-		<h1>${e}</h1>
-	</c:forEach> --%>
+	<%-- <hr>
+	<hr>
+	
+	<table border="5">
+		<thead style="font-weight: bold; ">
+				<tr>
+					<td>Employee ID</td>
+					<td>Skills</td>
+					<td>Skills ID</td>
+				</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="emp" items="${listSkills}" >
+				<tr>
+					<td>${emp.employeeID}</td>
+					<td>
+						<c:forEach var="emp2" items="${emp.skills}" varStatus="loop" >
+							${emp2} 
+						</c:forEach>
+					</td>
+					<td>${emp.skillID}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table> --%>
 	
 	<hr>
 	<hr>

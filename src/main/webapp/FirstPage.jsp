@@ -16,7 +16,7 @@
 			<hr>
 			<p style="display: inline-block;">Skills: </p><input name="skills" value="JAVA" placeholder="type here..." type="checkbox"/>JAVA &nbsp &nbsp
 														  <input name="skills" value="OOPS" placeholder="type here..." type="checkbox"/>OOPS &nbsp &nbsp
-														  <input name="skills" value="Collections" placeholder="type here..." type="checkbox"/>Collections &nbsp &nbsp
+														  <input name="skills" value="COLLECTIONS" placeholder="type here..." type="checkbox"/>COLLECTIONS &nbsp &nbsp
 														  <input name="skills" value="SERVLET&JSP" placeholder="type here..." type="checkbox"/>SERVLET&JSP &nbsp &nbsp
 														  <input name="skills" value="JDBC" placeholder="type here..." type="checkbox"/>JDBC &nbsp &nbsp
 														  <input name="skills" value="SPRING" placeholder="type here..." type="checkbox"/>SPRING &nbsp &nbsp  
@@ -31,7 +31,7 @@
 			<button>Insert</button>
 		</form>
 		<hr><hr>
-		<button> <a href="empAllList">ReadAllData</a> </button>
+		<button> <a href="empAllList">ReadAllData</a> </button> <button> <a href="index.jsp">Home</a> </button>
 	</div>
 </body>
 </html>
