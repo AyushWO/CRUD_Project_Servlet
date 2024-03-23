@@ -19,9 +19,7 @@ import com.company.entities.EmployeeSkills;
 public class EmpDAOImpl implements EmpDAOInterface {
 	@Override
 	public int insertEmpDAO(Employee employee1) {
-		// String q = "insert into EmployeeTable values(?,?,?,?,?,?)";
 		String q = "insert into EmployeeTable (name, age, salary, birthDate) values (?, ?, ?, ?)";
-		EmployeeSkills employeeSkills = new EmployeeSkills();
 		int result = 0;
 		ResultSet rs = null;
 		try {
@@ -32,33 +30,20 @@ public class EmpDAOImpl implements EmpDAOInterface {
 			stmt.setInt(2, employee1.getAge());
 			stmt.setInt(3, employee1.getSalary());
 			stmt.setString(4, employee1.getBirthDate());
-//			stmt.setString(2, employee1.getSkill());
-//			String[] empSkill = employeeSkills.getSkills();
-//			for (int i = 0; i < empSkill.length; i++) {
-//				stmt.setString(2, empSkill[i].join(", ", empSkill));
-//			}
 			result = stmt.executeUpdate();
 			rs = stmt.getGeneratedKeys();
 			if(rs.next()) {
 				result=rs.getInt(1);
-				System.out.println("Message 43, EmpDaoImpl, ReturnGeneratedKey-> "+result);
 			}
 			stmt.close();
 			con.close();
 
 		} catch (Exception e) {
-			System.out.println("Message 47, EmpDaoImpl");
 			e.printStackTrace();
 		}
 		System.out.println("Insert working fine in dao");
-		System.out.println("Message 54, EmpDaoImpl, ReturnGeneratedKey-> "+result);
 		return result; 
 	}
-	
-//	stmt.executeUpdate("INSERT INTO authors VALUES (, '"+ string.get(1) +"')", Statement.RETURN_GENERATED_KEYS);
-//	ResultSet rs = stmt.getGeneratedKeys();
-//	rs.next();
-//	long pk = rs.getLong(1);
 
 	@Override
 	public ArrayList<Employee> readAllEmpDAO() {
@@ -75,10 +60,6 @@ public class EmpDAOImpl implements EmpDAOInterface {
 				Employee employee = new Employee();
 				employee.setEmployeeID(rs.getInt("employeeID"));
 				employee.setName(rs.getString("name"));
-//				String skillsString = rs.getString("skills");
-//				String[] skillsArray = skillsString.split(", ");
-//				employee.setSkills(skillsArray);
-//				employee.setSkills(rs.getString("skills"));
 				employee.setAge(rs.getInt("age"));
 				employee.setSalary(rs.getInt("salary"));
 				employee.setBirthDate(rs.getString("birthDate"));
@@ -108,9 +89,6 @@ public class EmpDAOImpl implements EmpDAOInterface {
 			while (rs.next()) {
 				employee1.setEmployeeID(rs.getInt("employeeID"));
 				employee1.setName(rs.getString("name"));
-//				String[] skillsArray = skillsString.split(", ");
-//				String skillsString = rs.getString("skills");
-//				employee1.setSkill(skillsString);
 				employee1.setAge(rs.getInt("age"));
 				employee1.setSalary(rs.getInt("salary"));
 				employee1.setBirthDate(rs.getString("birthDate"));
@@ -131,11 +109,6 @@ public class EmpDAOImpl implements EmpDAOInterface {
 			String q = "update EmployeeTable set name=?, age=?, salary=?, birthDate=? where employeeID=?";
 			PreparedStatement stmt = con.prepareStatement(q);
 			stmt.setString(1, employee.getName());
-//			stmt.setString(2, employee.getSkill());
-//			String[] empSkill = employee.getSkills();
-//			for (int i = 0; i < empSkill.length; i++) {
-//				stmt.setString(2, empSkill[i].join(", ", empSkill));
-//			}
 			stmt.setInt(2, employee.getAge());
 			stmt.setInt(3, employee.getSalary());
 			stmt.setString(4, employee.getBirthDate());
@@ -170,21 +143,4 @@ public class EmpDAOImpl implements EmpDAOInterface {
 		System.out.println("delete data working fine in dao");
 		return isDeleted;
 	}
-	
-	/*
-	 * public int getDaoSkills(EmployeeSkills employeeSkill) { String q =
-	 * "insert into EmployeeSkillsTable (EmployeeId, employeeSkills) values (?, ?)";
-	 * int result = 0; try { Class.forName("com.mysql.cj.jdbc.Driver"); Connection
-	 * con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EmployeeDB",
-	 * "root", "root"); PreparedStatement stmt = con.prepareStatement(q);
-	 * stmt.setString(1, employeeSkill.getSkill()); // String empSkill =
-	 * employee1.getSkills(); // for (int i = 0; i < empSkill.length; i++) { //
-	 * stmt.setString(2, empSkill[i].join(", ", empSkill)); // } result =
-	 * stmt.executeUpdate();
-	 * 
-	 * stmt.close(); con.close();
-	 * 
-	 * } catch (Exception e) { System.out.println(e); }
-	 * System.out.println("getDaoSkills working fine in dao"); return 0; }
-	 */
 }

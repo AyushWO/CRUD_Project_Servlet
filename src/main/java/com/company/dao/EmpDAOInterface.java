@@ -1,10 +1,7 @@
 package com.company.dao;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import com.company.entities.Employee;
-import com.company.entities.EmployeeSkills;
 
 public interface EmpDAOInterface {
 	public int insertEmpDAO(Employee employee);

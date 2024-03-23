@@ -19,9 +19,9 @@ import com.company.entities.EmployeeSkills;
 
 public class EmpSkillsDAOImpl implements EmpSkillsDAOInterface {
 	@Override
-	public int insertEmpSkillsDAO(String skill, int id) {
-		
-		// String q = "insert into EmployeeTable values(?,?,?,?,?,?)";
+	public int insertEmpSkillsDAO(EmployeeSkills employeeSkills, String skill, String[] skills, int id) {
+		System.out.println("Message 23, EmpSkillsDAOImpl; skill: "+skills);
+		System.out.println("Message 24, EmpSkillsDAOImpl; id: "+id);
 		String q = "insert into EmployeeSkillsTable (employeeID ,skills) values (?, ?)";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -35,8 +35,6 @@ public class EmpSkillsDAOImpl implements EmpSkillsDAOInterface {
 				
 				stmt.executeUpdate();
 			}
-			
-
 			stmt.close();
 			con.close();
 
@@ -65,7 +63,6 @@ public class EmpSkillsDAOImpl implements EmpSkillsDAOInterface {
 				String skillsString = rs.getString("skills");
 				String[] skillsArray = skillsString.split(", ");
 				employeeSkills.setSkills(skillsArray);
-//				employeeSkills.setEmployeeID(rs.getInt("SkillsID"));
 				
 				list.add(employeeSkills);
 			}
@@ -77,16 +74,15 @@ public class EmpSkillsDAOImpl implements EmpSkillsDAOInterface {
 	}
 
 	@Override
-	public ArrayList<EmployeeSkills> getEmpSkillsById(int id) {   //here, I am getting, id=0 when code is moving from DB to service
-		System.out.println("Message 82, EMpSkillsDAOImpl; id: "+id);
-		ArrayList<EmployeeSkills> skillSet = new ArrayList<EmployeeSkills>();
+	public HashSet<EmployeeSkills> getEmpSkillsById(int id, String[] skills) {   //here, I am getting, id=0 when code is moving from DB to service
+		System.out.println("Message 81, EMpSkillsDAOImpl; id: "+id);
+		HashSet<EmployeeSkills> skillSet = new HashSet<EmployeeSkills>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		EmployeeSkills employeeSkill1;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EmployeeDB", "root", "root");
-//			String q = "select * from EmployeeSkillsTable where skillID=?";
 			String q = "select * from EmployeeSkillsTable where employeeID=?";
 			stmt = con.prepareStatement(q);
 			stmt.setInt(1, id);
@@ -95,12 +91,10 @@ public class EmpSkillsDAOImpl implements EmpSkillsDAOInterface {
 			while (rs.next()) {
 				employeeSkill1 = new EmployeeSkills();
 				String skillsString = rs.getString("skills");
-				System.out.println("Message 99, EmpSkillsDAOImpl; skillsString: "+skillsString);
 				String[] skillsArray = skillsString.split(", ");
-				System.out.println("Message 101, EmpSkillsDAOImpl skillsArray-> "+skillsArray);
 				employeeSkill1.setSkills(skillsArray);
 				employeeSkill1.setEmployeeID(rs.getInt("employeeID"));
-//				employee1.setSkillID(rs.getInt("skillID"));
+				employeeSkill1.setSkillID(rs.getInt("skillID"));
 				
 				skillSet.add(employeeSkill1);
 			}
@@ -108,50 +102,29 @@ public class EmpSkillsDAOImpl implements EmpSkillsDAOInterface {
 			e.printStackTrace();
 		}
 		System.out.println("data by ID working fine in EmpSkillsdao");
-		System.out.println("Message 111, EmpSkillsDAOImpl skillSet: -> "+skillSet);  
 		return skillSet;
 	}
 
 	@Override
-	public boolean updateEmpSkillsDAO(EmployeeSkills employeeSkills, String skills) {
+	public boolean updateEmpSkillsDAO(EmployeeSkills employeeSkills, String[] skills, int id) {
 		boolean isUpdated = false;
 		try {
-			System.out.println("Message 118, EmpskillsDAOImpl; skills: "+skills);
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/EmployeeDB", "root", "root");
 			String q = "update EmployeeSkillsTable set skills=? where skillID=?";
 			PreparedStatement stmt = con.prepareStatement(q);
-			System.out.println("Message 126, EmpSkillsDAOImpl");
-//			
-			String[] empSkillArray = skills.split(", ");
-			for (int i = 0; i < empSkillArray.length; i++) {
-				System.out.println("Message 129, EmpSkillsDAOImpl; splitedSkills: "+empSkillArray);   //you'll get the loop of skills like this : [Ljava.lang.String;@7a6e78df
-				stmt.setString(1, empSkillArray[i]);
-//				stmt.executeUpdate();
-			}
-			System.out.println("Message 134, EmpSkillsDAOImpl; splitedSkills: "+empSkillArray.toString());
-//			stmt.setString(1, employeeSkills.getSkill());
-			stmt.setInt(2, employeeSkills.getSkillID());
-//			stmt.setString(1, skills);
-//			stmt.setString(2, employee.getSkill());
-//			String[] empSkill = employee.getSkills();
-//			for (int i = 0; i < empSkill.length; i++) {
-//				stmt.setString(1, empSkill[i].join(", ", empSkill));
-//			}
 			
-			System.out.println("Message 144, EmpSkillsDAOImpl; skills: "+skills);
+			stmt.setString(1, employeeSkills.getSkill());
+			stmt.setInt(2, employeeSkills.getSkillID());
+			
 			int count = stmt.executeUpdate();
-			System.out.println("Message 146, EmpSkillsDAOImpl -> count: "+count);  
 			if (count == 1) {
-				System.out.println("Message 148, EmpSkillsDAOImpl");
 				isUpdated = true;
 			}
 		} catch (Exception e) {
-			System.out.println("Message 152, EmpSkillsDAOImpl");
 			e.printStackTrace();
 		}
 		System.out.println("update data working fine in EmpSkillsdao");
-		System.out.println("Message 156, EmpSkillsDAOImpl -> isUpdated: "+isUpdated);
 		return isUpdated;
 	}
 
@@ -175,37 +148,3 @@ public class EmpSkillsDAOImpl implements EmpSkillsDAOInterface {
 		return isDeleted;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
- * ALTER TABLE EmployeeSkillsTable DROP CONSTRAINT employeeID; ALTER TABLE
- * EmployeeSkillsTable DROP FOREIGN KEY employeeID;
- * 
- * ALTER TABLE EmployeeSkillsTable ADD CONSTRAINT `FOREIGN KEY` FOREIGN KEY
- * (`employeeID`) REFERENCES EmployeeTable (`employeeID`) ON DELETE CASCADE ON
- * UPDATE CASCADE;
- */

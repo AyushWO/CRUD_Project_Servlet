@@ -23,14 +23,13 @@
 			<h1>
 				<u>Update page</u>
 			</h1>
-			
-			<p style="display: inline-block;">Employee ID that needs to be updated:</p>
-			<input name="empid" value="${employee1.employeeID}" placeholder="type here..." type="number" />
+			<input name="empid" value="${employee1.employeeID}" placeholder="type here..." type="number" style="display: none;" />
 			<hr>
-			<%-- <p style="display: inline-block;">Skill ID that needs to be updated:</p>
-			<input name="skillID" value="${skillSet.skillID }" placeholder="type here..." type="number" />
-			<hr> --%>
-			<hr>
+			<%-- <p>${skillSet}</p> --%>
+			<%-- <c:forEach begin="0" end="skillSet.size" varStatus="loop" >
+				<input name="skillID" value="${skillSet.skillID[begin]}" placeholder="type here..." type="number" style="display: none;" />
+			</c:forEach> --%>
+			<%-- <input name="skillID" value="${skillSet.skillID}" placeholder="type here..." type="number" style="display: none;" /> --%>
 			<hr>
 			<p style="display: inline-block;">Name:</p>
 			<input name="EmpName" value="${employee1.name}" placeholder="type here..." type="text" />

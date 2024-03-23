@@ -1,6 +1,7 @@
 package com.company.empService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +22,7 @@ public class EmpServiceImpl implements EmpServiceInterface {
 	@Override
 	public int empInsert(Employee employee, String skill) {
 		int employeeID = empDao.insertEmpDAO(employee);
-		return empSkillsDao.insertEmpSkillsDAO(skill, employeeID);
+		return empSkillsDao.insertEmpSkillsDAO(null,skill, null, employeeID);
 	}
 
 	@Override
@@ -31,7 +32,6 @@ public class EmpServiceImpl implements EmpServiceInterface {
 
 		for (Employee employee1 : employees) {
 			ArrayList<EmployeeSkills> employeSkillsBlank1 = new ArrayList<EmployeeSkills>();
-//			employeSkillsBlank1.clear();
 			for (EmployeeSkills employeeSkills1 : employeeSkills) {
 				if (employee1.getEmployeeID() == employeeSkills1.getEmployeeID()) {
 					employeSkillsBlank1.add(employeeSkills1);
@@ -57,68 +57,37 @@ public class EmpServiceImpl implements EmpServiceInterface {
 		return empDao.deleteEmpDAO(id);
 	}
 
-//	@Override
-//	public int insertEmpSkills(EmployeeSkills employeeSkills) {
-//		return empSkillsDao.insertEmpSkillsDAO(employeeSkills, employeeSkills.getEmployeeID());
-//	}
-
-//	 @Override 
-//	 public ArrayList<EmployeeSkills> readAllEmpSkills() { return
-//	 empSkillsDao.readAllEmpSkillsDAO(); }
-
 	@Override
-	public ArrayList<EmployeeSkills> getEmpSkillsById(int id) {
-		System.out.println("Message 71, EmpServiceImpl; id: "+id);
-		return empSkillsDao.getEmpSkillsById(id);
+	public HashSet<EmployeeSkills> getEmpSkillsById(int id, String[] skills) {
+		return empSkillsDao.getEmpSkillsById(id, null);
 	}
 
 	@Override
-	public boolean updateEmpSkills(EmployeeSkills employeeSkill, String skills) {
-		Employee skills1 = new Employee();
-		
-		System.out.println("Message 79, EmpServiceImpl; employeeSkill.getSkillID(): "+employeeSkill.getSkillID());  //0
-		ArrayList<EmployeeSkills> employeeSkillByID = empSkillsDao.getEmpSkillsById(employeeSkill.getSkillID());
-		System.out.println("Message 79, EmpServiceImpl; employeeSkill.getSkillID(): "+employeeSkill.getSkillID());
-		ArrayList<EmployeeSkills> employeeSkillsUpdated = skills1.getSkills(); // after update
-		
-		System.out.println("Message 84, EmpServiceImpl, employeeSkillByID: " + employeeSkillByID);
-		System.out.println("Message 85, EmpServiceImpl, employeeSkillsUpdated: " + employeeSkillsUpdated);
+	public boolean updateEmpSkills(EmployeeSkills employeeSkill, String[] skills, int id) {
+		HashSet<EmployeeSkills> oldSkills = empSkillsDao.getEmpSkillsById(id, skills);
+		String[] newSkills1 = skills;
+		String[] skills01 = newSkills1;
+		HashSet<String> newSkills2 = new HashSet<String>(Arrays.asList(skills01));
 
-		for (EmployeeSkills updatedEmployee : employeeSkillByID) {
-			if (employeeSkillByID.contains(employeeSkill)) {
-				empSkillsDao.insertEmpSkillsDAO(updatedEmployee.getSkill(), employeeSkill.getSkillID());
+		String skillString = "";
+		for (int i = 0; i < skills.length; i++) {
+			if (!oldSkills.contains(newSkills2)) {
+				skillString = String.join(", ", newSkills2);
+			} 
+		}
+		empSkillsDao.insertEmpSkillsDAO(null, skillString, null, id);
+		
+		for (EmployeeSkills OSkill : oldSkills) {
+			if (!newSkills2.contains(OSkill)) {
+				int skillId1 = OSkill.getSkillID();
+				empSkillsDao.deleteEmpSkillsDAO(skillId1);
 			}
 		}
-
-		for (EmployeeSkills currentEmployee : employeeSkillByID) {
-			if (employeeSkillByID.contains(employeeSkill)) {
-				empSkillsDao.deleteEmpSkillsDAO(currentEmployee.getSkillID());
-			}
-		}
-		return empSkillsDao.updateEmpSkillsDAO(employeeSkill, skills);
+		return empSkillsDao.updateEmpSkillsDAO(employeeSkill, skills, id);
 	}
-
+		
 	@Override
 	public boolean deleteEmpSkills(int id) {
 		return empSkillsDao.deleteEmpSkillsDAO(id);
 	}
 }
-
-//ArrayList<Employee> newEmployee = employees.stream().flatMap(a->a.get).filter().map().collect();
-
-//assertThat(collected).containsExactly("1", "3");
-
-//Iterator<Employee> employee1 = employees.iterator();
-//while (employee1.hasNext()) {
-//ArrayList<EmployeeSkills> employeSkillsBlank1 = new ArrayList<EmployeeSkills>();
-//Employee employeeObject = employee1.next();
-//System.out.println("Message 50, EmpServiceImpl");
-//Iterator<EmployeeSkills> employeeSkill1 = employeeSkills.iterator();
-//while (employeeSkill1.hasNext()) {
-//EmployeeSkills employeeSkillObject = employeeSkill1.next();
-//if(employeeObject.getEmployeeID()==employeeSkillObject.getEmployeeID()) {
-//	employeeSkills.add(employeeSkillObject);
-//}
-//}
-//employeeObject.setSkills(employeSkillsBlank1);
-//}

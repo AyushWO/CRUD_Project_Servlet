@@ -1,6 +1,7 @@
 package com.company.empService;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,14 +18,10 @@ public interface EmpServiceInterface {
 	public boolean empUpdate(Employee employee);
 
 	public boolean empDelete(int id);
-	
-//	public int insertEmpSkills(EmployeeSkills employeeSkills);
 
-//	public ArrayList<EmployeeSkills> readAllEmpSkills();
+	public HashSet<EmployeeSkills> getEmpSkillsById(int id, String[] skills);
 
-	public ArrayList<EmployeeSkills> getEmpSkillsById(int id);
-
-	public boolean updateEmpSkills(EmployeeSkills employee, String skill);
+	public boolean updateEmpSkills(EmployeeSkills employee, String[] skill, int id);
 
 	public boolean deleteEmpSkills(int id);
 }
